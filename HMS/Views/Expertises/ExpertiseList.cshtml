@@ -1,0 +1,100 @@
+﻿@model IEnumerable<HMS.Models.Expertise>
+@{
+    ViewBag.Title = "ExpertiseList";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+<h2>ExpertiseList</h2>
+
+
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Add New Entry</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                
+           
+
+                <div class="md-form mb-5">
+                    <input type="text" id="Speciality" class="form-control validate">
+                    <label>Speciality</label>
+                </div>
+
+
+
+                
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button id = "btnAdd" class="btn btn-primary" data-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
+        Create New Entry
+    </a>
+</div>
+
+<br>
+<br>
+
+<!-- .................................Code for tables..............................-->
+
+<table id="tblExpertise" class="table table-bordered" cellpadding="0" cellspacing="0">
+    
+   
+        <tr>
+            <th style="width:100px">Expertise Id</th>
+            <th style="width:150px">Speciality</th>
+            <th style="width:150px">Actions</th>
+
+            
+        </tr>
+      
+        @foreach (var expertise in Model)
+        {
+            if (expertise.ExpertiseID == 0)
+            {
+                continue;
+            }
+            <tr>
+                <td class="ExpertiseId">
+                    <span>@expertise.ExpertiseID</span>
+                    <input type="hidden" value="@expertise.ExpertiseID" style="display:none" />
+                </td>
+
+
+                <td class="Speciality">
+                   
+                   
+                    <span>
+                         @expertise.Speciality
+                    </span>
+                   
+                    <input type="text" value="@expertise.Speciality" style="display:none" />
+                </td>
+
+                <td>
+                    <div class="btn-group">
+                        <a class="Edit btn btn-primary" href="javascript:;">Edit</a>
+                        <a class="Update btn btn-primary" href="javascript:;" style="display:none">Update</a>
+                        <a class="Cancel btn btn-danger" href="javascript:;" style="display:none">Cancel</a>
+                        <a class="Delete btn btn-danger" href="javascript:;">Delete</a>
+                    </div>
+
+               </td>
+            </tr>
+
+        }
+    </table>
+
+

@@ -1,0 +1,85 @@
+﻿
+
+@{
+    ViewBag.Title = "DoctorList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DoctorList</h2>
+
+
+
+
+<table id="tblCustomers" class="table table-bordered" cellpadding="0" cellspacing="0">
+
+
+    <tr>
+        <th style="width:100px">Doctor Id</th>
+        <th style="width:150px">First Name</th>
+        <th style="width:150px">Last Name</th>
+        <th style="width:150px">BirthDate</th>
+        <th style="width:150px">Degree</th>  
+    </tr>
+
+
+
+    @foreach (var doctor in Model.doctors)
+    {
+        if (doctor.DoctorID == 0)
+        {
+            continue;
+        }
+        <tr>
+            <td class="DoctorId">
+                <span>@doctor.DoctorID</span>
+                <input type="hidden" name="doctorID" value="@doctor.DoctorID" style="display:none" />
+            </td>
+
+
+
+            <td class="FirstName">
+                <span>@doctor.FirstName</span>
+                <input type="text" value="@doctor.FirstName" style="display:none" />
+            </td>
+
+
+            <td class="LastName">
+                <span>@doctor.LastName</span>
+                <input type="text" value="@doctor.LastName" style="display:none" />
+            </td>
+
+            <td class="BirthDate">
+                <span>@doctor.BirthDate</span>
+                <input type="date" value="@doctor.BirthDate" style="display:none" />
+            </td>
+
+
+            <td class="Degree">
+                <span>
+                    @{
+                    var hello = "";
+                    foreach (var i in Model.expertises)
+                    {
+                        if (i.ExpertiseID == doctor.Degree)
+                        {
+                            hello = i.Speciality;
+                        }
+                    }
+                } @hello
+            </span>
+            <select class="select" style="display:none">
+                @foreach (var doctor1 in Model.expertises)
+                {
+                    <option value="@doctor1.ExpertiseID @doctor1.Speciality"> @doctor1.Speciality </option>
+                }
+            </select>
+
+        </td>
+
+    </tr>
+
+                    }
+
+</table>
+
+

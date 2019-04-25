@@ -1,0 +1,169 @@
+﻿ 
+
+@{
+    ViewBag.Title = "DoctorList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DoctorList</h2>
+
+
+
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Add New Entry</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <label>First Name</label>   
+                     <input type="text" id="FirstName" class="form-control validate">        
+                </div>
+
+                <div class="md-form mb-5">
+                    <label>Last Name</label>
+                    <input type="text" id="LastName" class="form-control validate">
+                </div>
+
+
+                <div class="md-form mb-5">
+                    <label>Birth Date</label>            
+                    <input type="date" id="BirthDateId" class="form-control validate">
+                </div>
+
+
+                <div class="md-form mb-5">
+                    <label>Speciality</label>
+                    <select class="form-control validate" id="Degree" >
+                       
+                        @{
+                            HashSet<int> uniqueList = new HashSet<int>();
+                            foreach (var doctor in Model.doctors)
+                            {
+
+                                uniqueList.Add(doctor.Degree);
+
+                            }
+                        }
+                        
+                        
+                        @foreach (var degree in Model.expertises)
+                        {
+                            
+                            <option value="@degree.ExpertiseID @degree.Speciality">@degree.Speciality</option>
+
+                        }
+                       
+                    </select>
+                <!--    <input type="text" id="Degree" class="form-control validate"> -->
+                </div>
+
+                
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button id = "btnAdd" class="btn btn-primary" data-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center">
+    <a href="" class="btn btn-success btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">
+        Create New Entry
+    </a>
+</div>
+
+<br>
+<br>
+
+
+
+
+<table id="tblCustomers" class="table table-bordered" cellpadding="0" cellspacing="0">
+    
+  
+            <tr>
+                <th style="width:100px">Doctor Id</th>
+                <th style="width:150px">First Name</th>
+                <th style="width:150px">Last Name</th>
+                <th style="width:150px">BirthDate</th>
+                <th style="width:150px">Degree</th>
+                <th style="width:150px">Actions</th>
+            </tr>
+  
+  
+  
+        @foreach (var doctor in Model.doctors)
+        {
+            if (doctor.DoctorID == 0)
+            {
+                continue;
+            }
+            <tr>
+                <td class="DoctorId">
+                    <span>@doctor.DoctorID</span>
+                    <input type="hidden" name ="doctorID" value="@doctor.DoctorID" style="display:none" />
+                </td>
+
+
+
+                <td class="FirstName">
+                    <span>@doctor.FirstName</span>
+                    <input type="text" value="@doctor.FirstName" style="display:none" />
+                </td>
+
+
+                <td class="LastName">
+                    <span>@doctor.LastName</span>
+                    <input type="text" value="@doctor.LastName" style="display:none" />
+                </td>
+
+                <td class="BirthDate">
+                    <span>@doctor.BirthDate</span>
+                    <input type="date" value="@doctor.BirthDate" style="display:none" />
+                </td>
+
+
+                <td class="Degree">
+                    <span>@{ 
+                        var hello="";
+                        foreach (var i in Model.expertises) {
+                            if (i.ExpertiseID == doctor.Degree)
+                            {
+                                hello = i.Speciality;
+                            }
+                        }
+                    } @hello
+                    </span>
+                    <select class="select" style="display:none">
+                        @foreach (var doctor1 in Model.expertises)
+                        {
+                            <option value="@doctor1.ExpertiseID @doctor1.Speciality"> @doctor1.Speciality </option>
+                        }
+                    </select>
+                   
+                </td>
+
+                <td>
+                    <div class="btn-group">
+                        <a class="Edit btn btn-primary" href="javascript:;">Edit</a>
+                        <a class="Update btn btn-primary" href="javascript:;" style="display:none">Update</a>
+                        <a class="Cancel btn btn-danger" href="javascript:;" style="display:none">Cancel</a>
+                        <a class="Delete btn btn-danger" href="javascript:;">Delete</a>
+                       
+                    </div>
+
+                </td>
+            </tr>
+
+        }
+  
+</table>
+
+

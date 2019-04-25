@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HospitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="DoctorID" />
+    </Key>
+    <Property Name="DoctorID" Type="int" Nullable="false" />
+    <Property Name="LastName" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="FirstName" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="BirthDate" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Degree" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DoctorsWorkingDays">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DoctorID" Type="int" Nullable="false" />
+    <Property Name="WeekID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Expertise">
+    <Key>
+      <PropertyRef Name="ExpertiseID" />
+    </Key>
+    <Property Name="ExpertiseID" Type="int" Nullable="false" />
+    <Property Name="Speciality" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Weekdays">
+    <Key>
+      <PropertyRef Name="WeekId" />
+    </Key>
+    <Property Name="WeekId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ShortName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Doctor_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="Doctor1" Type="Self.Doctor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="DoctorID" />
+      </Principal>
+      <Dependent Role="Doctor1">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Expertise">
+    <End Role="Expertise" Type="Self.Expertise" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Expertise">
+        <PropertyRef Name="ExpertiseID" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="Degree" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorsWorkingDays_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="DoctorsWorkingDays" Type="Self.DoctorsWorkingDays" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="DoctorID" />
+      </Principal>
+      <Dependent Role="DoctorsWorkingDays">
+        <PropertyRef Name="DoctorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorsWorkingDays_DoctorsWorkingDays">
+    <End Role="Weekdays" Type="Self.Weekdays" Multiplicity="1" />
+    <End Role="DoctorsWorkingDays" Type="Self.DoctorsWorkingDays" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Weekdays">
+        <PropertyRef Name="WeekId" />
+      </Principal>
+      <Dependent Role="DoctorsWorkingDays">
+        <PropertyRef Name="WeekID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HospitalModelStoreContainer">
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DoctorsWorkingDays" EntityType="Self.DoctorsWorkingDays" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Expertise" EntityType="Self.Expertise" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Weekdays" EntityType="Self.Weekdays" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Doctor_Doctor" Association="Self.FK_Doctor_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Doctor1" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Expertise" Association="Self.FK_Doctor_Expertise">
+      <End Role="Expertise" EntitySet="Expertise" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorsWorkingDays_Doctor" Association="Self.FK_DoctorsWorkingDays_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="DoctorsWorkingDays" EntitySet="DoctorsWorkingDays" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorsWorkingDays_DoctorsWorkingDays" Association="Self.FK_DoctorsWorkingDays_DoctorsWorkingDays">
+      <End Role="Weekdays" EntitySet="Weekdays" />
+      <End Role="DoctorsWorkingDays" EntitySet="DoctorsWorkingDays" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

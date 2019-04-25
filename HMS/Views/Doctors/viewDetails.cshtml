@@ -1,0 +1,26 @@
+﻿
+@model dynamic
+@{
+    ViewBag.Title = "HELLO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<select id="selectDoctor" name="doctorlist">
+    <option value="0"> Select a doctor </option>
+    @foreach (var doctor in Model.doctors)
+    {
+        <option value="@doctor.DoctorID">@doctor.FirstName @doctor.LastName</option>
+    }
+</select>
+
+
+<div id="schedule">
+   
+</div>
+
+<script>
+    
+</script>

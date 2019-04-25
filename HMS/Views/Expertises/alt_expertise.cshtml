@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HMS.Models.Expertise>
+@{
+    ViewBag.Title = "ExpertiseList";
+    Layout = "~/Views/Shared/_LayoutE.cshtml";
+}
+
+<h2>ExpertiseList</h2>
+
+
+<!-- .................................Code for tables..............................-->
+
+<table id="tblExpertise" class="table table-bordered" cellpadding="0" cellspacing="0">
+
+
+    <tr>
+        <th style="width:100px">Expertise Id</th>
+        <th style="width:150px">Speciality</th>
+        
+
+
+    </tr>
+
+    @foreach (var expertise in Model)
+    {
+        if (expertise.ExpertiseID == 0)
+        {
+            continue;
+        }
+        <tr>
+            <td class="ExpertiseId">
+                <span>@expertise.ExpertiseID</span>
+                <input type="hidden" value="@expertise.ExpertiseID" style="display:none" />
+            </td>
+
+
+            <td class="Speciality">
+
+
+                <span>
+                    <a href="Find?degree=@expertise.Speciality">
+                        @expertise.Speciality
+                    </a>
+                </span>
+
+                <input type="text" value="@expertise.Speciality" style="display:none" />
+            </td>
+
+            
+        </tr>
+
+    }
+</table>
+
+
